@@ -1,10 +1,12 @@
 import { useState } from "react";
 import authServices from "../services/authServices";
+import { useNavigate } from "react-router";
 
 const Register = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleRegister =  (e) => {
         e.preventDefault();
@@ -12,10 +14,12 @@ const Register = () => {
        // Handle register logic here
         authServices.register({ name, email, password })
             .then(data => {
-                alter (data.message || "Registration successfull!");
+                alert (data.message || "Registration successfull!");
+
+                navigate("/login");
             })
             .catch(err => {
-                alter (data.message || "Registration failed!");
+                alert (data.message || "Registration failed!");
             })
     }
 
